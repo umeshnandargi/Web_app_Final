@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Add icon library -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>GL3P</title>
+        <link rel = "stylesheet" href ="{{ url_for('static', filename= 'css/main.css')}}">
+    </head>
+<body>
+    <p align = "left"><a href="/"><button class="btn"><i class="fa fa-home"></i> Home</button></a></p>
+    <p align = "left"><a href="/nmo"><button class="btn"><i class="fa fa-close"></i> Close</button></a></p>
+    <h1>Gauss Quadrature 3 point Formula<h1>
+    <br>
+    <form action="/gl3p" method = 'post'>
+        {% for message in get_flashed_messages() %}
+            {% if fun %}
+                <p>{{message}}</p>
+            {% endif %}
+        {% endfor %}
+        <label for="function">Enter Function</label>
+        <input type="text" name = 'function'>
+        <br>
+        <label for="upper_limit">Enter Upper Limit</label>
+        <input type="text" name = 'upper_limit'>
+        <br>
+        <label for="lower_limit">Enter Lower Limit</label>
+        <input type="text" name = 'lower_limit'>
+        <br>
+        <input type="submit" value = "Submit" id="submit">
+    </form>
+</body>    
+</html>
