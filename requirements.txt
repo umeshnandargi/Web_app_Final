@@ -11,3 +11,4 @@ opencv-python-headless
 webcolors==1.11.1
 Werkzeug==2.0.2
 wincertstore==0.2
+click<8.0,>=7.0
