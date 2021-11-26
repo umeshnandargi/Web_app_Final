@@ -11,4 +11,5 @@ matplotlib>=1.4.3
 pandas>=0.19
 flasgger==0.9.4
 streamlit
+webcolors==1.11.1
 opencv-python-headless
