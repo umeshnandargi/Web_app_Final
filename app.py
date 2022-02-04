@@ -2,7 +2,6 @@ from re import L
 from flask import render_template, Flask, request, flash, Response
 from math import sin, cos, tan, cosh, sinh, tanh, exp, pi
 from camera import Video
-import requests
 
 
 def gen(camera):
@@ -138,42 +137,6 @@ def res():
 def video():
     return Response(gen(Video()), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/weather', methods = ["POST", "GET"])
-def weather():
-    try:
-        base_url = "http://api.openweathermap.org/data/2.5/weather"
-        API_key = '7eb1f8c7bda4c85046993ddbc3a32f9b'
-
-        city = request.form.get("city_nm")
-
-        request_url = f"{base_url}?appid={API_key}&q={city}"
-        response = requests.get(request_url)
-
-        if response.status_code == 200:
-            data = response.json()
-            # print(data)
-            weather_data = data['weather'][0]['description']
-            icon = data['weather'][0]['icon']
-            t, t_fl, t_min, t_max = round(data["main"]['temp']-273.15, 2), round(data["main"]['feels_like'] -273.15, 2),\
-                round(data["main"]['temp_min'] - 273.15, 2) , \
-                round(data["main"]['temp_max']-273.15, 2)
-        
-        # date = "Friday, 04 February 2022"
-        
-        if t>30:
-            filename = 'Hot.jpg'
-        elif 10<t<35:
-            filename = 'Medium.jpg'
-        else:
-            filename = 'Cold.jpg'
-
-        current_temp = t
-        current_weather = weather_data
-        hi_low = f'{t_max} °C / {t_min} °C'
-        return render_template("weather.html", filename = filename, city=city, current_temp= current_temp,
-        current_weather= current_weather,hi_low= hi_low, icon =icon )
-    except:
-        return "<h1><center> Please enter valid city name </h1>"
 
 if __name__=="__main__":
     app.run(debug=True)
